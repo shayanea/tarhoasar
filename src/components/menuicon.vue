@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="menu_holder">
         <button :class="{'is-active' : toggle}" id="hamburger" class="hamburger hamburger--stand js-hamburger"  @click="Toggle" type="button">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
@@ -8,6 +8,9 @@
         <div id="Menu" :class="{'open' : toggle}">
         </div>
         <ul :class="{'open' : toggle}" class="menu_list">
+            <li>
+                <router-link v-if="!Main" to="/">Home</router-link>
+            </li>
             <li>
                 <router-link to="/about">About us</router-link>
             </li>
@@ -28,8 +31,16 @@ export default {
     name:'menu',
     data () {
         return {
-            toggle:false
+            toggle:false,
+            Main:false
         }
+    },
+    created () {
+        if(this.$router.currentRoute.name == 'Index'){
+			this.Main = true;
+		}else{
+			this.Inner = true;
+		}
     },
     methods : {
         Toggle : function () {
@@ -58,6 +69,10 @@ export default {
     transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     opacity: 0;
     z-index: 9;
+}
+
+.inner_page .menu_holder{
+    opacity: 0;
 }
 
 #Menu.open{
@@ -180,5 +195,34 @@ export default {
 
 #hamburger .hamburger-inner,#hamburger .hamburger-inner:after,#hamburger .hamburger-inner:before{
     width: 28px;
+}
+
+@media(max-width:768px){
+    #hamburger{
+        top: 5px;
+        right: 45px;
+        -webkit-transform: translate(0%, 0%);
+        transform: translate(0%, 0%);
+    }
+    .inner_page #hamburger{
+        right: 5px;
+    }
+    .menu_list{
+        top: 50%;
+        left: 50%;
+        right: auto;
+        -webkit-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+    }
+    #Menu{
+        width: calc(100% - 65px);
+        -webkit-clip-path: circle(10% at 80% 10%);
+        clip-path: circle(10% at 80% 10%);
+    }
+    .inner_page #Menu{
+        width: 100%;
+        right: 0;
+        left: 0;
+    }
 }
 </style>

@@ -1,8 +1,9 @@
 <template>
     <div class="inner_page">
+        <menuicon></menuicon>
         <div class="container">
             <div class="row">
-                <div class="col-md-10 col-sm-10 col-xs-12" style="margin-top:-60px;">
+                <div class="col-md-10 col-sm-10 col-xs-12 margin-top">
                     <div class="row project_list">
                         <div class="col-md-4 col-sm-3 col-xs-12">
                             <router-link to="/project/1">
@@ -80,12 +81,20 @@
 </template>
 
 <script>
+import MenuIcon from '../components/menuicon'
+
 export default {
-    name: 'projects'
+    name: 'projects',
+    components:{
+        'menuicon':MenuIcon
+    }
 }
 </script>
 
 <style>
+.margin-top{
+    margin-top: -60px;
+}
 .project_list:first-child [class*=' col-'] {
     margin-bottom: 35px;
 }
@@ -154,6 +163,15 @@ export default {
     color: #fff;
     text-align: center;
     margin: 0;
+}
+
+@media(max-width:768px){
+    .margin-top{
+        margin-top: 0;
+    }
+    .project_list:last-child [class*=' col-']{
+        margin-bottom: 35px;
+    }
 }
 
 </style>

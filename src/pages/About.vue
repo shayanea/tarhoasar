@@ -1,5 +1,6 @@
 <template>
     <div class="inner_page">
+        <menuicon></menuicon>
         <div class="container">
             <div class="row">
                 <div class="col-md-10 col-sm-10 col-xs-12">
@@ -23,8 +24,13 @@
 </template>
 
 <script>
+import MenuIcon from '../components/menuicon'
+
 export default {
-    name: 'about'
+    name: 'about',
+    components:{
+        'menuicon':MenuIcon
+    }
 }
 </script>
 

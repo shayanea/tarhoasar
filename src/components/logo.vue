@@ -180,4 +180,10 @@ export default {
         stroke-dashoffset: 0;
     }
 }
+@media(max-width:768px){
+    .inner_logo #Logo{
+        top: 25px!important;
+        left: 55px!important;
+    }
+}
 </style>
