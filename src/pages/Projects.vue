@@ -2,8 +2,8 @@
     <div class="inner_page">
         <div class="container">
             <div class="row">
-                <div class="col-md-10 col-sm-10 col-xs-12">
-                    <div class="row project_list" style="margin-top:-40px;">
+                <div class="col-md-10 col-sm-10 col-xs-12" style="margin-top:-60px;">
+                    <div class="row project_list">
                         <div class="col-md-4 col-sm-3 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
@@ -37,6 +37,8 @@
                                 </figure>
                             </router-link>
                         </div>
+                    </div>
+                    <div class="row project_list">
                         <div class="col-md-4 col-sm-3 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
@@ -84,7 +86,7 @@ export default {
 </script>
 
 <style>
-.project_list [class*=' col-'] {
+.project_list:first-child [class*=' col-'] {
     margin-bottom: 35px;
 }
 
@@ -105,8 +107,8 @@ export default {
     width: 100%;
     object-fit: cover;
     object-position: center;
-    max-height: 260px;
-    min-height: 260px;
+    max-height: 235px;
+    min-height: 235px;
 }
 
 .project_list .caption {

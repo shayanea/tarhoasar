@@ -29,10 +29,10 @@ export default {
 	created () {
 		if(this.$router.currentRoute.name == 'Index'){
 			this.Main = true;
-			document.querySelector("body").style.overflow = "hidden";
+			document.querySelector("body").style.cssText += "overflow:hidden;height:100%";
 		}else{
 			this.Inner = true;
-			document.querySelector("body").style.overflow = "auto";
+			document.querySelector("body").style.cssText += "overflow:auto;height:auto";
 		}
 		var self = this;
 		setTimeout(function(){
@@ -47,11 +47,11 @@ export default {
     		if(newRoute.name == "Index"){
 				this.Main = true;
 				this.Inner = false;
-				document.querySelector("body").style.overflow = "hidden";
+				document.querySelector("body").style.cssText += "overflow:hidden;height:100%";
 			}else{
 				this.Main = false;
 				this.Inner = true;
-				document.querySelector("body").style.overflow = "auto";
+				document.querySelector("body").style.cssText += "overflow:auto;height:auto";
 			}
       },
     },

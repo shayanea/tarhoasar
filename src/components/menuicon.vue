@@ -1,11 +1,13 @@
 <template>
-    <div id="Menu" :class="{'open' : toggle}">
-        <button :class="{'is-active' : toggle}" class="hamburger hamburger--stand js-hamburger"  @click="Toggle" type="button">
+    <div>
+        <button :class="{'is-active' : toggle}" id="hamburger" class="hamburger hamburger--stand js-hamburger"  @click="Toggle" type="button">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
             </span>
         </button>
-        <ul class="menu_list">
+        <div id="Menu" :class="{'open' : toggle}">
+        </div>
+        <ul :class="{'open' : toggle}" class="menu_list">
             <li>
                 <router-link to="/about">About us</router-link>
             </li>
@@ -46,8 +48,8 @@ export default {
     top: 0;
     bottom: 0;
     right: 30px;
-    -webkit-clip-path: circle(10% at 83% 50%);
-    clip-path: circle(10% at 83% 50%);
+    -webkit-clip-path: circle(10% at 87% 50%);
+    clip-path: circle(10% at 87% 50%);
     z-index: 1;
     -webkit-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     -moz-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -55,6 +57,7 @@ export default {
     -o-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     opacity: 0;
+    z-index: 9;
 }
 
 #Menu.open{
@@ -68,7 +71,7 @@ export default {
     transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28)!important;
 }
 
-#Menu.open .menu_list{
+.open.menu_list{
     opacity: 1;
     -webkit-transition: all .6s ease-out;
     -moz-transition: all .6s ease-out;
@@ -77,7 +80,7 @@ export default {
     transition: all .6s ease-out;
 }
 
-#Menu .menu_list{
+.menu_list{
     list-style: none;
     display: block;
     position: fixed;
@@ -90,6 +93,7 @@ export default {
     padding-right: 0;
     width: 100px;
     opacity: 0;
+    z-index: 999;
     -webkit-transition: opacity .6s ease-out;
     -moz-transition: opacity .6s ease-out;
     -ms-transition: opacity .6s ease-out;
@@ -97,13 +101,13 @@ export default {
     transition: opacity .6s ease-out;
 }
 
-#Menu .menu_list li{
+.menu_list li{
     float: right;
     width: 100%;
     margin-bottom: 25px;
 }
 
-#Menu .menu_list li a{
+.menu_list li a{
     color: #444;
     text-decoration: none;
     font-size: 18px;
@@ -112,7 +116,8 @@ export default {
     text-align: center;
 }
 
-.loaded #Menu {
+.loaded #Menu,
+.loaded #hamburger {
     opacity: 1;
     -webkit-transition: all .6s ease-out;
     -moz-transition: all .6s ease-out;
@@ -121,9 +126,9 @@ export default {
     transition: all .6s ease-out;
 }
 
-#Menu .hamburger{
+#hamburger{
     position: absolute;
-    top: 50%;
+    top: calc(50% - 30px);
     right: 85px;
     -ms-transform: translate(0%, -50%);
     -webkit-transform: translate(0%, -50%);
@@ -136,16 +141,18 @@ export default {
     border:0;
     padding: 0;
     line-height: 1;
+    z-index: 999;
+    opacity: 0;
 }
 
-#Menu .hamburger:after{
+#hamburger:after{
     content: '';
     position: absolute;
     right: 0;
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: -1;
+    z-index: 99;
     -webkit-clip-path: circle(10% at 50% 50%);
     clip-path: circle(10% at 50% 50%);
     -webkit-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -155,7 +162,7 @@ export default {
     transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-#Menu .hamburger:hover:after{
+#hamburger:hover:after{
     background: #ffff00;
     -webkit-clip-path: circle(45% at 50% 50%);
     clip-path: circle(45% at 50% 50%);
@@ -166,11 +173,12 @@ export default {
     transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-#Menu .hamburger-box{
-    width: 30px;
+#hamburger .hamburger-box{
+    width: 28px;
+    z-index: 999;
 }
 
-#Menu .hamburger-inner,#Menu .hamburger-inner:after,#Menu .hamburger-inner:before{
-    width: 30px;
+#hamburger .hamburger-inner,#hamburger .hamburger-inner:after,#hamburger .hamburger-inner:before{
+    width: 28px;
 }
 </style>
