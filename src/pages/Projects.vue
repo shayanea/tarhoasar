@@ -107,8 +107,8 @@ export default {
     width: 100%;
     object-fit: cover;
     object-position: center;
-    max-height: 235px;
-    min-height: 235px;
+    max-height: 232px;
+    min-height: 232px;
 }
 
 .project_list .caption {
