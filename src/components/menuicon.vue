@@ -1,6 +1,6 @@
 <template>
     <div id="Menu" :class="{'open' : toggle}">
-        <button :class="{'is-active' : toggle}" class="hamburger hamburger--spring js-hamburger"  @click="Toggle" type="button">
+        <button :class="{'is-active' : toggle}" class="hamburger hamburger--stand js-hamburger"  @click="Toggle" type="button">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
             </span>
@@ -49,11 +49,11 @@ export default {
     -webkit-clip-path: circle(10% at 83% 50%);
     clip-path: circle(10% at 83% 50%);
     z-index: 1;
-    -webkit-transition: all .6s ease-out;
-    -moz-transition: all .6s ease-out;
-    -ms-transition: all .6s ease-out;
-    -o-transition: all .6s ease-out;
-    transition: all .6s ease-out;
+    -webkit-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -moz-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -ms-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -o-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     opacity: 0;
 }
 
@@ -61,11 +61,11 @@ export default {
     background: #ffff00;
     -webkit-clip-path: circle(95% at 100% 50%);
     clip-path: circle(95% at 100% 50%);
-    -webkit-transition: all .6s ease-out!important;
-    -moz-transition: all .6s ease-out!important;
-    -ms-transition: all .6s ease-out!important;
-    -o-transition: all .6s ease-out!important;
-    transition: all .6s ease-out!important;
+    -webkit-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28)!important;
+    -moz-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28)!important;
+    -ms-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28)!important;
+    -o-transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28)!important;
+    transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28)!important;
 }
 
 #Menu.open .menu_list{
@@ -82,7 +82,7 @@ export default {
     display: block;
     position: fixed;
     top: 52%;
-    right: 250px;
+    right: 300px;
     -ms-transform: translate(0%, -50%);
     -webkit-transform: translate(0%, -50%);
     transform: translate(0%, -50%);
@@ -107,6 +107,9 @@ export default {
     color: #444;
     text-decoration: none;
     font-size: 18px;
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 
 .loaded #Menu {
@@ -128,24 +131,46 @@ export default {
     outline: none;
     box-shadow: none;
     border-radius: 50%;
-    height: 70px;
-    width: 70px;
+    height: 60px;
+    width: 60px;
     border:0;
     padding: 0;
     line-height: 1;
-    -webkit-transition: background .2s ease-out;
-    -moz-transition: background .2s ease-out;
-    -ms-transition: background .2s ease-out;
-    -o-transition: background .2s ease-out;
-    transition: background .2s ease-out;
 }
 
-#Menu .hamburger:hover{
+#Menu .hamburger:after{
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    -webkit-clip-path: circle(10% at 50% 50%);
+    clip-path: circle(10% at 50% 50%);
+    -webkit-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -moz-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -ms-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -o-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+#Menu .hamburger:hover:after{
     background: #ffff00;
-    -webkit-transition: background .2s ease-out;
-    -moz-transition: background .2s ease-out;
-    -ms-transition: background .2s ease-out;
-    -o-transition: background .2s ease-out;
-    transition: background .2s ease-out;
+    -webkit-clip-path: circle(45% at 50% 50%);
+    clip-path: circle(45% at 50% 50%);
+    -webkit-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -moz-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -ms-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    -o-transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+#Menu .hamburger-box{
+    width: 30px;
+}
+
+#Menu .hamburger-inner,#Menu .hamburger-inner:after,#Menu .hamburger-inner:before{
+    width: 30px;
 }
 </style>
