@@ -1,6 +1,6 @@
 <template>
-    <div class="menu_holder">
-        <button :class="{'is-active' : toggle}" id="hamburger" class="hamburger hamburger--stand js-hamburger"  @click="Toggle" type="button">
+    <div class="menu_holder" :class="{'open' : toggle}">
+        <button :class="{'is-active' : toggle}" id="hamburger" class="hamburger hamburger--stand js-hamburger" @click="Toggle" type="button">
             <span class="hamburger-box">
                 <span class="hamburger-inner"></span>
             </span>
@@ -28,22 +28,22 @@
 import icon from '../assets/icon.css'
 
 export default {
-    name:'menu',
-    data () {
+    name: 'menu',
+    data() {
         return {
-            toggle:false,
-            Main:false
+            toggle: false,
+            Main: false
         }
     },
-    created () {
-        if(this.$router.currentRoute.name == 'Index'){
-			this.Main = true;
-		}else{
-			this.Inner = true;
-		}
+    created() {
+        if (this.$router.currentRoute.name == 'Index') {
+            this.Main = true;
+        } else {
+            this.Inner = true;
+        }
     },
-    methods : {
-        Toggle : function () {
+    methods: {
+        Toggle: function () {
             this.toggle = !this.toggle;
         }
     }
@@ -51,7 +51,7 @@ export default {
 </script>
 
 <style>
-#Menu{
+#Menu {
     background: transparent;
     width: 50%;
     height: calc(100% - 70px);
@@ -71,11 +71,57 @@ export default {
     z-index: 9;
 }
 
-.inner_page .menu_holder{
-    opacity: 0;
+.inner_page #Menu{
+    position: fixed;
+    max-height: 400px;
+    max-width: 600px;
+    width: 400px;
+    right: auto;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 9999;
+    overflow: visible;
+    -webkit-clip-path: circle(10% at 50% 50%);
+    clip-path: circle(10% at 50% 50%);
+    -webkit-transition: all .45s ease;
+    -moz-transition: all .45s ease;
+    -ms-transition: all .45s ease;
+    -o-transition: all .45s ease;
+    transition: all .45s ease;
 }
 
-#Menu.open{
+.inner_page .menu_holder:after{
+    content: '';
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: rgba(255, 255, 255, .7);
+    opacity: 0;
+    visibility: hidden;
+    z-index: 99;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+.inner_page .menu_holder.open:after{
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: all .2s ease-out;
+    -moz-transition: all .2s ease-out;
+    -ms-transition: all .2s ease-out;
+    -o-transition: all .2s ease-out;
+    transition: all .2s ease-out;
+}
+
+#Menu.open {
     background: #ffff00;
     -webkit-clip-path: circle(95% at 100% 50%);
     clip-path: circle(95% at 100% 50%);
@@ -86,16 +132,27 @@ export default {
     transition: all .45s cubic-bezier(0.18, 0.89, 0.32, 1.28)!important;
 }
 
-.open.menu_list{
-    opacity: 1;
-    -webkit-transition: all .6s ease-out;
-    -moz-transition: all .6s ease-out;
-    -ms-transition: all .6s ease-out;
-    -o-transition: all .6s ease-out;
-    transition: all .6s ease-out;
+.inner_page #Menu.open{
+    -webkit-clip-path: circle(50% at 50% 50%);
+    clip-path: circle(50% at 50% 50%);
+    -webkit-transition: all .45s ease!important;
+    -moz-transition: all .45s ease!important;
+    -ms-transition: all .45s ease!important;
+    -o-transition: all .45s ease!important;
+    transition: all .45s ease!important;
 }
 
-.menu_list{
+.open.menu_list {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: all .45s ease-out;
+    -moz-transition: all .45s ease-out;
+    -ms-transition: all .45s ease-out;
+    -o-transition: all .45s ease-out;
+    transition: all .45s ease-out;
+}
+
+.menu_list {
     list-style: none;
     display: block;
     position: fixed;
@@ -108,40 +165,79 @@ export default {
     padding-right: 0;
     width: 100px;
     opacity: 0;
+    visibility: hidden;
     z-index: 999;
-    -webkit-transition: opacity .6s ease-out;
-    -moz-transition: opacity .6s ease-out;
-    -ms-transition: opacity .6s ease-out;
-    -o-transition: opacity .6s ease-out;
-    transition: opacity .6s ease-out;
+    -webkit-transition: opacity .2s ease-out;
+    -moz-transition: opacity .2s ease-out;
+    -ms-transition: opacity .2s ease-out;
+    -o-transition: opacity .2s ease-out;
+    transition: opacity .2s ease-out;
 }
 
-.menu_list li{
+.inner_page .menu_list{
+    right: auto;
+    left: 50%;
+    top: 50%;
+    -ms-transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+}
+
+.menu_list li {
     float: right;
     width: 100%;
     margin-bottom: 25px;
 }
 
-.menu_list li a{
+.menu_list li a {
     color: #444;
     text-decoration: none;
     font-size: 18px;
     display: block;
     width: 100%;
     text-align: center;
+    position: relative;
+    overflow: hidden;
+    padding-bottom: 10px;
+}
+
+.menu_list li a:after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0px;
+    width: 100%;
+    height: 1px;
+    background: #000;
+    transform: translate(100%, 0%);
+    -webkit-transition: all .35s ease-out;
+    -moz-transition: all .35s ease-out;
+    -ms-transition: all .35s ease-out;
+    -o-transition: all .35s ease-out;
+    transition: all .35s ease-out;
+}
+
+.menu_list li a:hover:after {
+    transform: translate(-100%, 0%);
+    -webkit-transition: all .35s ease-out;
+    -moz-transition: all .35s ease-out;
+    -ms-transition: all .35s ease-out;
+    -o-transition: all .35s ease-out;
+    transition: all .35s ease-out;
 }
 
 .loaded #Menu,
 .loaded #hamburger {
     opacity: 1;
-    -webkit-transition: all .6s ease-out;
-    -moz-transition: all .6s ease-out;
-    -ms-transition: all .6s ease-out;
-    -o-transition: all .6s ease-out;
-    transition: all .6s ease-out;
+    -webkit-transition: all .35s ease-out;
+    -moz-transition: all .35s ease-out;
+    -ms-transition: all .35s ease-out;
+    -o-transition: all .35s ease-out;
+    transition: all .35s ease-out;
 }
 
-#hamburger{
+#hamburger {
     position: absolute;
     top: calc(50% - 30px);
     right: 85px;
@@ -153,14 +249,22 @@ export default {
     border-radius: 50%;
     height: 60px;
     width: 60px;
-    border:0;
+    border: 0;
     padding: 0;
     line-height: 1;
     z-index: 999;
     opacity: 0;
 }
 
-#hamburger:after{
+.inner_page #hamburger{
+    position: fixed;
+    top: 85px;
+    -ms-transform: translate(0%, 0%);
+    -webkit-transform: translate(0%, 0%);
+    transform: translate(0%, 0%);
+}
+
+#hamburger:after {
     content: '';
     position: absolute;
     right: 0;
@@ -177,7 +281,7 @@ export default {
     transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-#hamburger:hover:after{
+#hamburger:hover:after {
     background: #ffff00;
     -webkit-clip-path: circle(45% at 50% 50%);
     clip-path: circle(45% at 50% 50%);
@@ -188,38 +292,47 @@ export default {
     transition: all .2s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
-#hamburger .hamburger-box{
-    width: 28px;
+#hamburger .hamburger-box {
+    width: 25px;
     z-index: 999;
 }
 
-#hamburger .hamburger-inner,#hamburger .hamburger-inner:after,#hamburger .hamburger-inner:before{
-    width: 28px;
+
+#hamburger .hamburger-inner,
+#hamburger .hamburger-inner:after,
+#hamburger .hamburger-inner:before {
+    width: 25px;
 }
 
-@media(max-width:768px){
-    #hamburger{
+/*.hamburger-inner,
+.hamburger-inner:after,
+.hamburger-inner:before {
+    height: 3px!important;
+}*/
+
+@media(max-width:768px) {
+    #hamburger {
         top: 5px;
         right: 45px;
         -webkit-transform: translate(0%, 0%);
         transform: translate(0%, 0%);
     }
-    .inner_page #hamburger{
+    .inner_page #hamburger {
         right: 5px;
     }
-    .menu_list{
+    .menu_list {
         top: 50%;
         left: 50%;
         right: auto;
         -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
     }
-    #Menu{
+    #Menu {
         width: calc(100% - 65px);
         -webkit-clip-path: circle(10% at 80% 10%);
         clip-path: circle(10% at 80% 10%);
     }
-    .inner_page #Menu{
+    .inner_page #Menu {
         width: 100%;
         right: 0;
         left: 0;

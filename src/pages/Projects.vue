@@ -3,9 +3,10 @@
         <menuicon></menuicon>
         <div class="container">
             <div class="row">
-                <div class="col-md-10 col-sm-10 col-xs-12 margin-top">
+                <div class="col-md-1 col-sm-1 col-xs-12"></div>
+                <div class="col-md-9 col-sm-9 col-xs-12 margin-top">
                     <div class="row project_list">
-                        <div class="col-md-4 col-sm-3 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
                                     <img src="../../data/photo_2017-01-29_14-44-15.jpg" alt="Kajal Residential Project" class="project_title">
@@ -16,7 +17,7 @@
                                 </figure>
                             </router-link>
                         </div>
-                        <div class="col-md-4 col-sm-3 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
                                     <img src="../../data/photo_2017-01-29_14-44-39.jpg" alt="Kajal Residential Project" class="project_title">
@@ -27,7 +28,7 @@
                                 </figure>
                             </router-link>
                         </div>
-                        <div class="col-md-4 col-sm-3 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
                                     <img src="../../data/photo_2017-01-29_14-44-33.jpg" alt="Kajal Residential Project" class="project_title">
@@ -38,9 +39,9 @@
                                 </figure>
                             </router-link>
                         </div>
-                    </div>
-                    <div class="row project_list">
-                        <div class="col-md-4 col-sm-3 col-xs-12">
+                    <!--</div>
+                    <div class="row project_list">-->
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
                                     <img src="../../data/photo_2017-01-29_12-45-36.jpg" alt="Kajal Residential Project" class="project_title">
@@ -51,7 +52,7 @@
                                 </figure>
                             </router-link>
                         </div>
-                        <div class="col-md-4 col-sm-3 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
                                     <img src="../../data/photo_2017-01-29_11-59-02.jpg" alt="Kajal Residential Project" class="project_title">
@@ -62,7 +63,7 @@
                                 </figure>
                             </router-link>
                         </div>
-                        <div class="col-md-4 col-sm-3 col-xs-12">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
                             <router-link to="/project/1">
                                 <figure>
                                     <img src="../../data/photo_2017-01-29_14-44-15.jpg" alt="Kajal Residential Project" class="project_title">
@@ -93,7 +94,7 @@ export default {
 
 <style>
 .margin-top{
-    margin-top: -60px;
+    /*margin-top: -60px;*/
 }
 .project_list:first-child [class*=' col-'] {
     margin-bottom: 35px;
@@ -116,8 +117,8 @@ export default {
     width: 100%;
     object-fit: cover;
     object-position: center;
-    max-height: 232px;
-    min-height: 232px;
+    max-height: 400px;
+    min-height: 400px;
 }
 
 .project_list .caption {
