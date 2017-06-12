@@ -27,6 +27,11 @@ export default {
 		'logo':Logo
 	},
 	created () {
+		if(navigator.userAgent.toLowerCase().indexOf('firefox') == -1){
+			document.body.className += "chrome";
+		}else{
+			document.body.className += "firefox";
+		}
 		if(this.$router.currentRoute.name == 'Index'){
 			this.Main = true;
 			document.querySelector("body").style.cssText += "overflow:hidden;height:100%";

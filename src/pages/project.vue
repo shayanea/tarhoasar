@@ -1,45 +1,43 @@
 <template>
     <div class="inner_page">
-        <div class="container">
+        <menuicon></menuicon>
+        <loader :show="Loading"></loader>
+        <div class="container" v-show="!Loading">
             <div class="row inner_project">
-                <div class="col-md-10 col-sm-10 col-xs-12">
-                    <div class="inner_project_header">
-                        <h2>Kajal Residential Project</h2>
-                        <h3>Tehran 1386</h3>
-                    </div>
-                    <div class="inner_project_description">
-                        <span>Location : North Dibaji</span>
-                        <span>Client : Babak Sedaghat Kamal , Sepehr Oshagh</span>
-                        <span>Architect : Hootan Karoobe</span>
-                        <span>Structur AI Design : Hooman Faridi</span>
-                    </div>
-                    <div class="inner_project_content">
-                        <p>Lorem ipsum dolor sit amet, quisque ipsum massa augue in nulla. Maecenas dui lorem dolor interdum in etiam. Euismod consectetuer imperdiet odio, nostrum viverra eu molestie amet id, ac mattis quis mi enim curabitur in, eget vestibulum erat nostra rhoncus sed laoreet. Tellus sed, a et ultrices libero ultricies dui, nulla id et, aliquet et felis tortor id dignissim nec. Ut wisi sit at beatae nullam, sed egestas in, turpis vestibulum etiam, lectus aliquam. Tincidunt vestibulum non natoque nonummy sit, etiam orci ullamcorper tempus nibh vivamus nunc, ornare interdum praesent. Suspendisse sed at euismod eget, imperdiet integer vehicula diam wisi magna sed, libero sociis a dolor, quisque eget, rhoncus vestibulum at feugiat augue. Nunc non velit suspendisse porttitor elementum, nam quisque pellentesque curae ornare, in iaculis. Sed tincidunt, proin cum, parturient eu sodales ut. Volutpat mi libero. Consequat non auctor dis ut pharetra vitae. Rutrum lectus commodo venenatis tristique sollicitudin nam, dui magna risus. Vitae ad adipiscing justo non ante in, velit suspendisse proin pellentesque mi faucibus, parturient neque enim. Libero bibendum arcu tellus dapibus, parturient et. Non eu vestibulum placerat, eu morbi nunc donec, aliquam vitae a praesent blandit, euismod et curabitur, euismod ridiculus proin erat. Ullamco elementum elementum, quis maecenas accumsan nonummy in, sem luctus lacinia sollicitudin accumsan ligula fringilla, mollis nullam donec volutpat ante eleifend dui, sed lectus varius etiam purus arcu. Turpis vitae urna aliquet ornare mauris nisl, eu lorem quis dui erat. Convallis enim rutrum nibh etiam, arcu rhoncus donec class pulvinar aenean. Sed est ut pede, conubia elit arcu erat libero consequat aenean, molestie turpis donec aute vitae vitae, vitae eu in wisi interdum vehicula consequat, quis blandit urna rutrum. Feugiat nisl ac et proin, magnis neque nibh ultricies, sagittis cras, elit suscipit, ac suspendisse curabitur. Egestas et et et fringilla, hendrerit non malesuada nec.</p>
-                    </div>
+                <div class="col-md-1 col-sm-1 hidden-xs"></div>
+                <div class="col-md-6 col-sm-6 hidden-xs">
                     <div class="project_cover">
-                        <a href="../../data/photo_2017-01-29_14-44-15.jpg" data-lightbox="gallery" data-title="Kajal Residential Project">
-                            <img src="../../data/photo_2017-01-29_14-44-15.jpg" alt="" class="img-responsive">
+                        <a :href="project.header" data-lightbox="gallery" :data-title="project.title">
+                            <img :src="project.header" alt="" class="img-responsive">
                         </a>
                     </div>
                     <div class="row">                        
-                        <div class="col-md-4 col-sm-12 col-xs-12 grid-col">
-                            <a href="../../data/photo_2017-01-29_14-44-33.jpg" class="grid-item" data-lightbox="gallery" data-title="Kajal Residential Project">
-                                <img src="../../data/photo_2017-01-29_14-44-33.jpg">
+                        <div class="col-md-6 col-sm-12 col-xs-12 grid-col" v-for="(item, index) in project.gallery">
+                            <a :href="item.src" class="grid-item" data-lightbox="gallery" :data-title="project.title">
+                                <img :src="item.src">
                             </a>
                         </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 grid-col">
-                            <a href="../../data/photo_2017-01-29_14-44-39.jpg" class="grid-item" data-lightbox="gallery" data-title="Kajal Residential Project">
-                                <img src="../../data/photo_2017-01-29_14-44-39.jpg">
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 grid-col">
-                            <a href="../../data/photo_2017-01-29_12-45-36.jpg" class="grid-item" data-lightbox="gallery" data-title="Kajal Residential Project">
-                                <img src="../../data/photo_2017-01-29_12-45-36.jpg">
-                            </a>
-                        </div>
-                        <div class="col-md-4 col-sm-12 col-xs-12 grid-col">
-                            <a href="../../data/photo_2017-01-29_11-59-02.jpg" class="grid-item" data-lightbox="gallery" data-title="Kajal Residential Project">
-                                <img src="../../data/photo_2017-01-29_11-59-02.jpg">
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-3 col-xs-12">
+                    <div class="inner_project_header">
+                        <h2>{{project.title}}</h2>
+                        <h3>{{project.description}}</h3>
+                    </div>
+                    <div class="inner_project_description">
+                        <div class="dynamic_text" v-html="project.content"></div>
+                    </div>
+                </div>
+                <div class="hidden-md hidden-sm col-xs-12">
+                    <div class="project_cover">
+                        <a :href="project.header" data-lightbox="gallery" :data-title="project.title">
+                            <img :src="project.header" alt="" class="img-responsive">
+                        </a>
+                    </div>
+                    <div class="row">                        
+                        <div class="col-md-6 col-sm-12 col-xs-12 grid-col" v-for="(item, index) in project.gallery">
+                            <a :href="item.src" class="grid-item" data-lightbox="gallery" :data-title="project.title">
+                                <img :src="item.src">
                             </a>
                         </div>
                     </div>
@@ -50,10 +48,48 @@
 </template>
 
 <script>
+import MenuIcon from '../components/menuicon'
+import Loader from '../components/loader'
+
 export default {
     name: 'project',
     data () {
-        return { 
+        return {
+            id:'',
+            project:{},
+            Loading:false 
+        }
+    },
+    components: {
+        'menuicon': MenuIcon,
+        'loader':Loader
+    },
+    created() {
+        return this.GetData(),
+        document.title = "Project Detail";
+    },
+    mounted(){
+        return lightbox.option({disableScrolling:true});
+    },
+    methods : {
+        GetData(){
+            this.Loading = true;
+            this.$http.get('http://tarhoasargroup.com/api/getwidget/project')
+            .then(function(res) {
+                console.log(res.data);
+                var item = res.data;
+                for(var i = 0;item.length > i; i++){
+                    if(item[i].id == this.$route.params.id){
+                        this.project = JSON.parse(item[i].data);
+                        this.project.content = this.project.content.replace(/\r?\n/g, '<br />');
+                        this.id = this.$route.params.id;
+                    }
+                }
+                this.Loading = false;
+            },function(err){
+                console.log(err);
+                this.Loading = false;
+            });
         }
     }
 }
@@ -120,7 +156,7 @@ export default {
 }
 
 .inner_project .project_cover a {
-    display: grid;
+    display: block;
     position: relative;
 }
 
@@ -312,5 +348,31 @@ export default {
     -o-transition: transform .2s ease-out;
     transition: transform .2s ease-out;
     background-color: rgba(255, 255, 51, 0.55);
+}
+.dynamic_text{
+    direction: ltr;
+    text-align: left;
+}
+.dynamic_text br{
+    line-height: 2.5;
+}
+.lightbox .lb-image{
+    border:none!important;
+}
+.lb-data .lb-number{
+    display: none!important;
+}
+.lb-data .lb-caption{
+    display: none!important;
+}
+.lb-data .lb-close{
+    position: absolute!important;
+    top: -35px!important;
+}
+.lightboxOverlay{
+    top: -35px!important;
+}
+body.lb-disable-scrolling{
+    overflow: hidden!important;
 }
 </style>

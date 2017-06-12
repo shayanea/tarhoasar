@@ -1,78 +1,22 @@
 <template>
     <div class="inner_page">
         <menuicon></menuicon>
-        <div class="container">
+        <loader :show="Loading"></loader>
+        <div class="container" v-show="!Loading">
             <div class="row">
                 <div class="col-md-1 col-sm-1 col-xs-12"></div>
                 <div class="col-md-9 col-sm-9 col-xs-12 margin-top">
                     <div class="row project_list">
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <router-link to="/project/1">
+                        <div class="col-md-6 col-sm-6 col-xs-12" v-for="(item, index) in list">
+                            <a :href="'#/project/' + item.id">
                                 <figure>
-                                    <img src="../../data/photo_2017-01-29_14-44-15.jpg" alt="Kajal Residential Project" class="project_title">
+                                    <img :src="item.data.header" :alt="item.data.title" class="project_title">
                                     <div class="caption">
-                                        <h2>Kajal Residential Project</h2>
-                                        <h4>Tehran 1386</h4>
+                                        <h2>{{item.data.title}}</h2>
+                                        <h4>{{item.data.description}}</h4>
                                     </div>
                                 </figure>
-                            </router-link>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <router-link to="/project/1">
-                                <figure>
-                                    <img src="../../data/photo_2017-01-29_14-44-39.jpg" alt="Kajal Residential Project" class="project_title">
-                                    <div class="caption">
-                                        <h2>Kajal Residential Project</h2>
-                                        <h4>Tehran 1386</h4>
-                                    </div>
-                                </figure>
-                            </router-link>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <router-link to="/project/1">
-                                <figure>
-                                    <img src="../../data/photo_2017-01-29_14-44-33.jpg" alt="Kajal Residential Project" class="project_title">
-                                    <div class="caption">
-                                        <h2>Kajal Residential Project</h2>
-                                        <h4>Tehran 1386</h4>
-                                    </div>
-                                </figure>
-                            </router-link>
-                        </div>
-                    <!--</div>
-                    <div class="row project_list">-->
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <router-link to="/project/1">
-                                <figure>
-                                    <img src="../../data/photo_2017-01-29_12-45-36.jpg" alt="Kajal Residential Project" class="project_title">
-                                    <div class="caption">
-                                        <h2>Kajal Residential Project</h2>
-                                        <h4>Tehran 1386</h4>
-                                    </div>
-                                </figure>
-                            </router-link>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <router-link to="/project/1">
-                                <figure>
-                                    <img src="../../data/photo_2017-01-29_11-59-02.jpg" alt="Kajal Residential Project" class="project_title">
-                                    <div class="caption">
-                                        <h2>Kajal Residential Project</h2>
-                                        <h4>Tehran 1386</h4>
-                                    </div>
-                                </figure>
-                            </router-link>
-                        </div>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                            <router-link to="/project/1">
-                                <figure>
-                                    <img src="../../data/photo_2017-01-29_14-44-15.jpg" alt="Kajal Residential Project" class="project_title">
-                                    <div class="caption">
-                                        <h2>Kajal Residential Project</h2>
-                                        <h4>Tehran 1386</h4>
-                                    </div>
-                                </figure>
-                            </router-link>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -83,21 +27,50 @@
 
 <script>
 import MenuIcon from '../components/menuicon'
+import Loader from '../components/loader'
 
 export default {
     name: 'projects',
-    components:{
-        'menuicon':MenuIcon
+    components: {
+        'menuicon': MenuIcon,
+        'loader':Loader
+    },
+    data() {
+        return {
+            list:[],
+            Loading:true
+        }
+    },
+    created() {
+        return this.GetData(), 
+        document.title = "Projects List";
+    },
+    methods: {
+        GetData : function(){
+            this.Loading = true;
+            this.$http.get('http://tarhoasargroup.com/api/getwidget/project')
+            .then(function(res) {
+                for(var i = 0;res.data.length > i; i++){
+                    this.list.push({data:JSON.parse(res.data[i].data),id:res.data[i].id});
+                }
+                console.log(this.list)
+                this.Loading = false;
+            },function(err){
+                console.log(err);
+                this.Loading = false;
+            });
+        }
     }
 }
 </script>
 
 <style>
-.margin-top{
+.margin-top {
     /*margin-top: -60px;*/
 }
+
 .project_list:first-child [class*=' col-'] {
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 .project_list [class*=' col-'] a {
@@ -117,8 +90,8 @@ export default {
     width: 100%;
     object-fit: cover;
     object-position: center;
-    max-height: 400px;
-    min-height: 400px;
+    max-height: 470px;
+    min-height: 470px;
 }
 
 .project_list .caption {
@@ -166,13 +139,21 @@ export default {
     margin: 0;
 }
 
-@media(max-width:768px){
-    .margin-top{
+@media(max-width:768px) {
+    .margin-top {
         margin-top: 0;
     }
-    .project_list:last-child [class*=' col-']{
+    .project_list:last-child [class*=' col-'] {
         margin-bottom: 35px;
     }
+    .project_list figure img{
+        max-height: 250px;
+        min-height: 250px;
+    }
+    .project_list .caption{
+        -o-ms-transform: translateY(0%);
+        -webkit-transform: translateY(0%);
+        transform: translateY(0%);
+    }
 }
-
 </style>

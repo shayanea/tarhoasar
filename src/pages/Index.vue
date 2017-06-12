@@ -21,7 +21,8 @@ export default {
         var self = this;
         setTimeout(function(){
 			return self.loaded = true;
-		},1500)
+		},1500);
+        return document.title = "Tarho Asar Architecture Group Official Website";
     }
 }
 </script>

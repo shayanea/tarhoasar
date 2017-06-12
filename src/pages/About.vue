@@ -1,24 +1,24 @@
 <template>
     <div class="inner_page">
         <menuicon></menuicon>
-        <div class="container">
+        <loader :show="Loading"></loader>
+        <div class="container" v-show="!Loading">
             <div class="row">
                 <div class="col-md-1 col-sm-1 col-xs-12"></div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="col-md-12 col-sm-12 col-xs-12">
-                        <img src="../../data/about_1.jpg" alt="About Us" class="img-responsive inner_about_header">
-                        <h2 class="about_title">About Us</h2>
-                        <p class="about_desc">Lorem ipsum dolor sit amet, quisque ipsum massa augue in nulla. Maecenas dui lorem dolor interdum in etiam. Euismod consectetuer imperdiet odio, nostrum viverra eu molestie amet id, ac mattis quis mi enim curabitur in, eget vestibulum erat nostra rhoncus sed laoreet. Tellus sed, a et ultrices libero ultricies dui, nulla id et, aliquet et felis tortor id dignissim nec. Ut wisi sit at beatae nullam, sed egestas in, turpis vestibulum etiam, lectus aliquam. Tincidunt vestibulum non natoque nonummy sit, etiam orci ullamcorper tempus nibh vivamus nunc, ornare interdum praesent. Suspendisse sed at euismod eget, imperdiet integer vehicula diam wisi magna sed, libero sociis a dolor, quisque eget, rhoncus vestibulum at feugiat augue. Nunc non velit suspendisse porttitor elementum, nam quisque pellentesque curae ornare, in iaculis. Sed tincidunt, proin cum, parturient eu sodales ut. Volutpat mi libero. Consequat non auctor dis ut pharetra vitae. Rutrum lectus commodo venenatis tristique sollicitudin nam, dui magna risus. Vitae ad adipiscing justo non ante in, velit suspendisse proin pellentesque mi faucibus, parturient neque enim. Libero bibendum arcu tellus dapibus, parturient et. Non eu vestibulum placerat, eu morbi nunc donec, aliquam vitae a praesent blandit, euismod et curabitur, euismod ridiculus proin erat. Ullamco elementum elementum, quis maecenas accumsan nonummy in, sem luctus lacinia sollicitudin accumsan ligula fringilla, mollis nullam donec volutpat ante eleifend dui, sed lectus varius etiam purus arcu. Turpis vitae urna aliquet ornare mauris nisl, eu lorem quis dui erat. Convallis enim rutrum nibh etiam, arcu rhoncus donec class pulvinar aenean. Sed est ut pede, conubia elit arcu erat libero consequat aenean, molestie turpis donec aute vitae vitae, vitae eu in wisi interdum vehicula consequat, quis blandit urna rutrum. Feugiat nisl ac et proin, magnis neque nibh ultricies, sagittis cras, elit suscipit, ac suspendisse curabitur. Egestas et et et fringilla, hendrerit non malesuada nec.</p>
+                        <slider animation="fade" height="300px" interval="6000">
+                            <slider-item v-for="(item, index) in about.gallery" :key="index">
+                                 <img :src="item.src" class="img-responsive" />
+                            </slider-item>
+                        </slider>
+                        <h2 class="about_title">{{about.title}}</h2>
+                        <p class="about_desc">{{about.description}}</p>
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 about_item">
-                        <img src="../../data/about_2.jpg" alt="" class="img-responsive">
-                        <h3 class="person_name">Eng.Mehdi Mohammadi</h3>
-                        <p class="person_position">CEO</p>
-                    </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 about_item">
-                        <img src="../../data/about_3.jpg" alt="" class="img-responsive">
-                        <h3 class="person_name">Eng.Mehdi Mohammadi</h3>
-                        <p class="person_position">CEO</p>
+                    <div class="col-md-6 col-sm-6 col-xs-12 about_item" v-for="(item, index) in about.teams">
+                        <img :src="item.src" alt="" class="img-responsive">
+                        <h3 class="person_name">{{item.name}}</h3>
+                        <p class="person_position">{{item.position}}</p>
                     </div>
                 </div>
             </div>
@@ -28,11 +28,40 @@
 
 <script>
 import MenuIcon from '../components/menuicon'
+import Loader from '../components/loader'
+import { Slider, SliderItem } from 'vue-easy-slider'
 
 export default {
     name: 'about',
+    data(){
+        return {
+            Loading:true,
+            about:{}
+        }
+    },
     components:{
-        'menuicon':MenuIcon
+        'menuicon':MenuIcon,
+        'loader':Loader,
+        Slider,
+        SliderItem
+    },
+    created() {
+        return this.GetData(),
+        document.title = "About us";
+    },
+    methods : {
+        GetData : function (){
+            this.$http.get('http://tarhoasargroup.com/api/getwidget/about')
+            .then(function(res){
+                console.log(res.data);
+                if(res.data[0].data !== null){
+                    this.about = JSON.parse(res.data[0].data);
+                }
+                this.Loading = false;
+            },function(err){
+                console.log(err.data);
+            });
+        }
     }
 }
 </script>
@@ -71,6 +100,7 @@ export default {
     color: #999999;
     text-align: justify;
     margin-bottom: 40px;
+    direction: ltr;
 }
 
 .about_item img {
@@ -90,6 +120,26 @@ export default {
     color: #999;
     font-size: 16px;
     text-align: center;
+}
+.btn-right[data-v-5dba9d84],
+.btn-left[data-v-5dba9d84]{
+    background: transparent!important;
+    outline: none!important;
+}
+.indi-center[data-v-5dba9d84]{
+    display: none;
+}
+.slider-item img{
+    object-fit: cover;
+    object-position: center center;
+}
+@media (max-width:786px){
+    .slider[data-v-5dba9d84]{
+        height: 150px!important;
+    }
+    .about_desc{
+        text-align: left;
+    }
 }
 </style>
 
