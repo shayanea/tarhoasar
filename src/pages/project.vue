@@ -28,7 +28,7 @@
                         <div class="dynamic_text" v-html="project.content"></div>
                     </div>
                 </div>
-                <div class="hidden-md hidden-sm col-xs-12">
+                <div class="hidden-lg hidden-md hidden-sm col-xs-12">
                     <div class="project_cover">
                         <a :href="project.header" data-lightbox="gallery" :data-title="project.title">
                             <img :src="project.header" alt="" class="img-responsive">
