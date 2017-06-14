@@ -1,11 +1,13 @@
 <template>
     <div class="main_page">
         <menuicon></menuicon>
+        <hex></hex>
     </div>
 </template>
 
 <script>
 import MenuIcon from '../components/menuicon'
+import Hex from '../components/hex'
 
 export default {
     name:'index',
@@ -15,7 +17,8 @@ export default {
         }
     },
     components:{
-        'menuicon':MenuIcon
+        'menuicon':MenuIcon,
+        'hex':Hex
     },
     created () {
         var self = this;
