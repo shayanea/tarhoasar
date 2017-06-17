@@ -74,7 +74,7 @@ export default {
     methods : {
         GetData(){
             this.Loading = true;
-            this.$http.get('http://tarhoasargroup.com/api/getwidget/project')
+            this.$http.get('http://'+ window.location.hostname +'/api/getwidget/project')
             .then(function(res) {
                 console.log(res.data);
                 var item = res.data;

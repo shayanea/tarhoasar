@@ -51,7 +51,7 @@ export default {
     },
     methods : {
         GetData : function (){
-            this.$http.get('http://tarhoasargroup.com/api/getwidget/about')
+            this.$http.get('http://'+ window.location.hostname +'/api/getwidget/about')
             .then(function(res){
                 console.log(res.data);
                 if(res.data[0].data !== null){

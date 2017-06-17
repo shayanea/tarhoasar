@@ -188,7 +188,7 @@ export default {
     -ms-transition: all .45s ease!important;
     -o-transition: all .45s ease!important;
     transition: all .45s ease!important;
-    z-index: 999;
+    z-index: 9999;
     background: #ffff00;
 }
 

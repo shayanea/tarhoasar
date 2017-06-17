@@ -48,7 +48,7 @@ export default {
     methods: {
         GetData : function(){
             this.Loading = true;
-            this.$http.get('http://tarhoasargroup.com/api/getwidget/project')
+            this.$http.get('http://'+ window.location.hostname +'/api/getwidget/project')
             .then(function(res) {
                 for(var i = 0;res.data.length > i; i++){
                     this.list.push({data:JSON.parse(res.data[i].data),id:res.data[i].id});
